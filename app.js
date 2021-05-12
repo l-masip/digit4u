@@ -3,6 +3,7 @@ const express = require("express");
 
 // DB config
 require("./configs/db.config");
+
 const app = express();
 
 //Middleware config
@@ -11,6 +12,14 @@ require("./configs/cors.config.js")(app);
 
 //session config
 require("./configs/session.config")(app);
+//passport config
+require('./configs/passport.config')(app);
+
+const authRouter = require('./routes/auth.routes');
+app.use('/api/auth', authRouter);
+
+const privateRouter = require('./routes/private.routes');
+app.use('/api/private', privateRouter);
 
 const userRouter = require("./routes/user.routes");
 app.use("/api/users", userRouter);

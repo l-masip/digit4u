@@ -6,7 +6,7 @@ const expertSchema = new Schema(
     name: { type: String, required: true },
     surname: { type: String, required: true },
     description: { type: String, required: true },
-    img: { type: string, required: true },
+    img: { type: String, required: true },
   },
   {
     timestamps: true,

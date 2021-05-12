@@ -12,7 +12,7 @@ module.exports = (app) => {
       },
       store: MongoStore.create({
         mongoUrl: process.env.DBURL
-      })
+      }),
     })
 
   )

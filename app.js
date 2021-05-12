@@ -14,5 +14,7 @@ require('./configs/session.config')(app);
 
 const userRouter = require('./routes/user.routes');
 app.use('/api/users', userRouter);
+const productRouter = require('./routes/product.routes');
+app.use('/api/products', productRouter)
 
 module.exports = app;

@@ -8,10 +8,10 @@ const productSchema = new Schema(
     price: { type: Number, required: true },
     category: {
       type: String,
-      enum: ["Web Design", "Digital Marketing", "Staff Training", "Consulting"],
+      enum: ['Web Design', 'Digital Marketing', 'Staff Training', 'Consulting'],
     },
-    video_demo: { type: string, required: true },
-    expert: [{ type: objectId, ref: "expert" }],
+    video_demo: { type: String, required: true },
+    expert: { type: Schema.Types.ObjectId, ref: 'Expert' },
   },
   {
     timestamps: true,

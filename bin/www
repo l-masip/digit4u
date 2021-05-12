@@ -6,7 +6,7 @@
 
  var app = require("../app");
  var debug = require("debug")(
-   "todo-app-api:server"
+   "digit4u-app-api:server"
  );
  var http = require("http");
  require("dotenv").config();
@@ -42,6 +42,7 @@
      // named pipe
      return val;
    }
+
    if (port >= 0) {
      // port number
      return port;
@@ -50,8 +51,16 @@
    return false;
  }
 
-  /* Event listener for HTTP server "error" event.
+ /**
+  * Event listener for HTTP server "error" event.
   */
+
+ function onError(error) {
+   if (error.syscall !== "listen") {
+     throw error;
+   }
+
+   var bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
 
    // handle specific listen errors with friendly messages
    switch (error.code) {
@@ -66,7 +75,7 @@
      default:
        throw error;
    }
-
+ }
 
  /**
   * Event listener for HTTP server "listening" event.

@@ -97,14 +97,47 @@ router.get('/loggedin', (req, res, next) => {
   }
 });
 
-router.get('/auth/linkedin', passport.authenticate('linkedin', {state:true}));
+router.get('/auth/linkedin', passport.authenticate('linkedin',  (error, theUser, failureDetails) => {
+    if (error) {
+      return res.status(500).json(error);
+    }
+    if (!theUser) {
+      return res.status(401).json(failureDetails);
+    }
+    req.login(theUser, (error) => {
+      if (error) {
+        return res.status(500).json(error);
+      }
+      return res.status(200).json(theUser);
+    });
+  }));
 
 router.get(
   '/auth/linkedin/callback',
   passport.authenticate('linkedin', {
-    successRedirect: '/private/profile',
+    successRedirect: '/auth/profile',
     failureRedirect: '/login',
   }))
+
+  router.get('/profile', (req, res, next) => {
+    if (req.isAuthenticated()) {
+      return res.status(200).json(req.user, req.user.role === 'admin');
+    } else {
+      return res.status(403).json({ message: 'Forbbiden' });
+    }
+  });
+
+  router.get(
+    '/admin-page',
+    checkRole('admin'),
+    (req, res, next) => {
+      if (req.isAuthenticated()) {
+        return res.status(200).json(req.user.role === 'admin');
+      } else {
+        return res.status(403).json({ message: 'Forbbiden' });
+      }
+    }
+  );
 
 
 module.exports = router;

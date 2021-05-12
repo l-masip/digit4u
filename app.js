@@ -18,9 +18,6 @@ require('./configs/passport.config')(app);
 const authRouter = require('./routes/auth.routes');
 app.use('/api/auth', authRouter);
 
-const privateRouter = require('./routes/private.routes');
-app.use('/api/private', privateRouter);
-
 const userRouter = require("./routes/user.routes");
 app.use("/api/users", userRouter);
 

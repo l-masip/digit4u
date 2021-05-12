@@ -48,7 +48,7 @@ module.exports = (app) => {
       {
         clientID: process.env.clientID,
         clientSecret: process.env.clientSecret,
-        callbackURL: 'http://127.0.0.1:3000/auth/linkedin/callback',
+        callbackURL: process.env.callbackURL,
         scope: ['r_emailaddress', 'r_liteprofile'],
         state: true,
       },

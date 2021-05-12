@@ -12,6 +12,7 @@ require('./configs/cors.config.js')(app);
 //session config
 require('./configs/session.config')(app);
 
-
+const userRouter = require('./routes/user.routes');
+app.use('/api/users', userRouter);
 
 module.exports = app;

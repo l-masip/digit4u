@@ -80,12 +80,12 @@ Product CRUD
 {
   email: {type: String, required: true, unique: true},
   password: {type: String, required: true},
-  Name: {type: String, required: true},
-  Surname: {type: String, required: true},
+  name: {type: String, required: true},
+  surname: {type: String, required: true},
   Phone: {type: Number, required: true},
-  Position: {type: String},
-  Products: [type:objectId, ref:'product'],
-  Role: {type: String, enum:['admin', 'user']}
+  position: {type: String},
+  products: {type:Schema.Typers.ObjectId, ref:'Product'},
+  role: {type: String, enum:['admin', 'user']}
 }
 ```
 

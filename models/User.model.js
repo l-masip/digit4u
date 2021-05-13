@@ -12,6 +12,7 @@ const userSchema = new Schema(
   password: {type: String, required: true},
   name: {type: String, required: true},
   surname: {type: String, required: true},
+  linkedinID: {type: String},
   phone: {type: Number, required: true},
   position: {type: String},
   products: {type:Schema.Types.ObjectId, ref:'Product'},

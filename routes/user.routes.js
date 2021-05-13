@@ -3,7 +3,6 @@ const User = require('../models/User.model');
 const router =express.Router();
 
 router.get('/', (req, res, next)=>{
-  console.log("try");
   User.find()
   .then(users => res.status(200).json(users))
   .catch(err => res.status(500).json(err))

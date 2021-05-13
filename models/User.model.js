@@ -17,7 +17,7 @@ const userSchema = new Schema(
   position: {type: String},
   products: {type:Schema.Types.ObjectId, ref:'Product'},
   role: {type: String, enum:['admin', 'user'], default: 'user'}
-}, {
+},{
   timestamps:true,
   toJSON: {
     transform: (doc, ret) =>{

@@ -5,11 +5,10 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const User = require('./../models/users');
 
 
-stripeRouter.post('/create-checkout-session/:userId', async (req, res) => {
+stripeRouter.post('/create-checkout-session/:id', async (req, res) => {
   const user = await User.findById(req.params.user.id).populate(
     'currentCart.user.product'
   );
-  // get the cart info of the user and update the line_items
 
   const itemsToCharge = user.products.map((product) => {
     const itemObj = {

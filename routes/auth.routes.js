@@ -2,7 +2,6 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const User = require('../models/User.model');
-const uploader = require('../configs/cloudinary.config')
 const bcrypt = require('bcryptjs');
 const bcryptSalt = 10;
 
@@ -78,16 +77,15 @@ router.post('/logout', (req, res, next) => {
   return res.status(200).json({ message: 'Log out success!' });
 });
 
-router.put('/edit', uploader.single('photo'), (req, res, next) => {
-  console.log(req.file);
-  User.findOneAndUpdate(
-    { _id: req.user.id },
-    { ...req.body, photo: req.file ? req.file.path : req.user.photo },
-    { new: true }
-  )
-    .then((user) => res.status(200).json(user))
-    .catch((error) => res.status(500).json(error));
-});
+// router.put('/edit', (req, res, next) => {
+//   console.log(req.file);
+//   User.findOneAndUpdate(
+//     { _id: req.user.id },
+//     { new: true }
+//   )
+//     .then((user) => res.status(200).json(user))
+//     .catch((error) => res.status(500).json(error));
+// });
 
 router.get('/loggedin', (req, res, next) => {
   if (req.isAuthenticated()) {

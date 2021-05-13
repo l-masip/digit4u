@@ -5,6 +5,7 @@ const articleSchema = new Schema({
   name: { type: String, required: true, unique: true },
   description: { type: String, required: true },
   link: { type: String, required: true },
+  photo: { type: String, required: true }
 },{
   timestamps:true,
   toJSON:{

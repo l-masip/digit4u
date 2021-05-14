@@ -9,12 +9,12 @@ router.get("/", (req, res, next) => {
     .catch((err) => res.status(500).json(err));
 });
 
-router.get("/:id", (req, res, next) => {
-  const { id } = req.params;
-  Article.findOne({ _id: id, article: req.article.id })
-    .then((articles) => res.status(200).json(articles))
-    .catch((err) => res.status(500).json(err));
-});
+// router.get("/:id", (req, res, next) => {
+//   const { id } = req.params;
+//   Article.findOne({ _id: id, article: req.article.id })
+//     .then((articles) => res.status(200).json(articles))
+//     .catch((err) => res.status(500).json(err));
+// });
 
 router.post("/", async (req, res, next) => {
   const { name, description, link, photo } = req.body;
@@ -36,8 +36,8 @@ router.post("/", async (req, res, next) => {
 router.put("/:id", uploader.single('photo'), (req, res, next) => {
   const { id } = req.params;
   Article.findOneAndUpdate(
-    { _id: id, article: req.article.id }, 
-    { ...req.body, photo: req.file ? req.file.path : req.article.photo },
+    { _id: id }, 
+    // { ...req.body, photo: req.file ? req.file.path : req.article.photo },
     req.body, {
     new: true,
   })
@@ -47,7 +47,7 @@ router.put("/:id", uploader.single('photo'), (req, res, next) => {
 
 router.delete("/:id", (req, res, next) => {
   const { id } = req.params;
-  Article.findOneAndRemove({ _id: id, article: req.article.id })
+  Article.findOneAndRemove({ _id: id })
     .then(() => res.status(200).json({ message: `Article ${id} deleted` }))
     .catch((err) => res.status(500).json(err));
 });

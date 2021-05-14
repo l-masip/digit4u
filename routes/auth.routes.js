@@ -2,11 +2,11 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const User = require('../models/User.model');
-const nodemailer = require('nodemailer');
+// const nodemailer = require('nodemailer');
 const uploader = require('../configs/cloudinary.config')
 const bcrypt = require('bcryptjs');
 const bcryptSalt = 10;
-const transporter  =  require('../configs/nodemailer.config')
+// const transporter  =  require('../configs/nodemailer.config')
 
 router.post('/signup', (req, res, next) => {
   const { email, password, name, surname, phone, position } = req.body;
@@ -88,16 +88,6 @@ router.post('/logout', (req, res, next) => {
   req.logout();
   return res.status(200).json({ message: 'Log out success!' });
 });
-
-// router.put('/edit', (req, res, next) => {
-//   console.log(req.file);
-//   User.findOneAndUpdate(
-//     { _id: req.user.id },
-//     { new: true }
-//   )
-//     .then((user) => res.status(200).json(user))
-//     .catch((error) => res.status(500).json(error));
-// });
 
 router.get('/loggedin', (req, res, next) => {
   if (req.isAuthenticated()) {

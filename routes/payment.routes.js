@@ -1,27 +1,32 @@
-require('dotenv').config();
-const express = require('express');
+require("dotenv").config();
+const express = require("express");
 const paymentRouter = express.Router();
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const Product = require('./../models/Product.model');
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const Product = require("./../models/Product.model");
+const User = require("./../models/User.model");
 
-
-paymentRouter.post('/create-checkout-session/:id', async (req, res) => {
+paymentRouter.post("/create-checkout-session/:id", async (req, res) => {
   const product = await Product.findById(req.params.id);
-
-    const objToPurchase = {
-      price_data: {
-        currency: 'eur',
-        product_data: {
-          name: product.name,
-        }
+  const { id } = req.user;
+  const updatedUser = await User.findOneAndUpdate(
+    { _id: id },
+    {$push: {'products': product._id}},
+    {new: true}
+    );
+  const objToPurchase = {
+    price_data: {
+      currency: "eur",
+      product_data: {
+        name: product.name,
       },
-      quantity: 1,
-    };
+    },
+    quantity: 1,
+  };
 
   const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
+    payment_method_types: ["card"],
     line_items: objToPurchase,
-    mode: 'payment',
+    mode: "payment",
     success_url: `http://localhost:5000/profile`,
     cancel_url: `http://localhost:5000/`,
   });

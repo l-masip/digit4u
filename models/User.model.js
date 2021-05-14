@@ -15,7 +15,7 @@ const userSchema = new Schema(
   linkedinID: {type: String},
   phone: {type: Number, required: true},
   position: {type: String},
-  products: {type:Schema.Types.ObjectId, ref:'Product'},
+  products: [{type:Schema.Types.ObjectId, ref:'Product'}],
   role: {type: String, enum:['admin', 'user'], default: 'user'}
 },{
   timestamps:true,

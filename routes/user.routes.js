@@ -1,12 +1,12 @@
-const express = require('express');
-const User = require('../models/User.model');
-const router =express.Router();
+const express = require("express");
+const User = require("../models/User.model");
+const router = express.Router();
 
-router.get('/', (req, res, next)=>{
+router.get("/", (req, res, next) => {
   User.find()
-  .then(users => res.status(200).json(users))
-  .catch(err => res.status(500).json(err))
-})
+    .then((users) => res.status(200).json(users))
+    .catch((err) => res.status(500).json(err));
+});
 
 // router.post("/", async (req, res, next) =>{
 //   const {email, name, surname, phone, position, products} = req.body;
@@ -22,18 +22,22 @@ router.get('/', (req, res, next)=>{
 //   }
 // })
 
-router.put('/:id',(req, res, next) =>{
-  const {id} = req.params;
-  User.findOneAndUpdate({_id:id, user:req.user.id}, req.body, {new:true})
-  .then(user =>res.status(200).json(user))
-  .catch(err => res.status(500).json(err))
-})
+router.put("/:id", (req, res, next) => {
+  const { id } = req.params;
+  User.findOneAndUpdate(
+    { _id: id }, 
+    req.body, 
+    { new: true }
+  )
+    .then((user) => res.status(200).json(user))
+    .catch((err) => res.status(500).json(err));
+});
 
-router.delete('/:id', (req,res,next) => {
-  const {id} = req.params;
-  User.findOneAndRemove({_id:id, user:req.user.id})
-  .then(() => res.status(200).json({message:`User ${id} deleted`}))
-  .catch(err => res.status(500).json(err))
-})
+router.delete("/:id", (req, res, next) => {
+  const { id } = req.params;
+  User.findOneAndRemove({ _id: id, user: req.user.id })
+    .then(() => res.status(200).json({ message: `User ${id} deleted` }))
+    .catch((err) => res.status(500).json(err));
+});
 
 module.exports = router;

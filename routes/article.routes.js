@@ -19,7 +19,7 @@ router.get("/:id", (req, res, next) => {
 router.post("/", async (req, res, next) => {
   const { name, description, link, photo } = req.body;
   try {
-    const article = await article.create({
+    const article = await Article.create({
       name,
       description,
       link,
@@ -27,7 +27,7 @@ router.post("/", async (req, res, next) => {
       user: req.user.id
     });
 
-    return res.status(200).json(articles);
+    return res.status(200).json(article);
   } catch (err) {
     return res.status(500).json(err);
   }

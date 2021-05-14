@@ -2,8 +2,11 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const User = require('../models/User.model');
+const nodemailer = require('nodemailer');
+const uploader = require('../configs/cloudinary.config')
 const bcrypt = require('bcryptjs');
 const bcryptSalt = 10;
+const transporter  =  require('../configs/nodemailer.config')
 
 router.post('/signup', (req, res, next) => {
   const { email, password, name, surname, phone, position } = req.body;
@@ -40,6 +43,14 @@ router.post('/signup', (req, res, next) => {
       phone,
       position,
     })
+    // transporter
+    //   .sendMail({
+    //     from: 'Contacto web <ironhacknodemailer@gmail.com>',
+    //     to: 'trianaheinz@gmail.com', // email from signup form
+    //     subject: 'Bienvenido a Digit 4U',
+    //     text: 'Bienvenido',
+    //     html: mailTemplate(user.name),
+    //   })
       .then((newUser) => {
         req.login(newUser, (error) => {
           if (error) {

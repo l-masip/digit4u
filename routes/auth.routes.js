@@ -43,21 +43,22 @@ router.post('/signup', (req, res, next) => {
       phone,
       position,
     })
-    // transporter
-    //   .sendMail({
-    //     from: 'Contacto web <ironhacknodemailer@gmail.com>',
-    //     to: 'trianaheinz@gmail.com', // email from signup form
-    //     subject: 'Bienvenido a Digit 4U',
-    //     text: 'Bienvenido',
-    //     html: mailTemplate(user.name),
-    //   })
       .then((newUser) => {
         req.login(newUser, (error) => {
           if (error) {
             return res.status(500).json(error);
           }
+          transporter.sendMail({
+            from: 'Contacto web <digit4you21@gmail.com',
+            to: 'trianaheinz@gmail.com', // email from signup form
+            subject: 'Bienvenido a Digit 4 you',
+            text: 'Bienvenido',
+            html: `<p>Gracias por crear tu cuenta ${newUser.name}</p>`,
+          });
           return res.status(200).json(newUser);
+
         });
+
       })
       .catch((error) => res.status(500).json(error));
   });

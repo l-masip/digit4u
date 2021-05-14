@@ -1,17 +1,14 @@
 require('dotenv').config();
 const express = require('express');
-const stripeRouter = express.Router();
+const paymentRouter = express.Router();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const User = require('./../models/users');
+const Product = require('./../models/Product.model');
 
 
-stripeRouter.post('/create-checkout-session/:id', async (req, res) => {
-  const user = await User.findById(req.params.user.id).populate(
-    'currentCart.user.product'
-  );
+paymentRouter.post('/create-checkout-session/:id', async (req, res) => {
+  const product = await Product.findById(req.params.id);
 
-  const itemsToCharge = user.products.map((product) => {
-    const itemObj = {
+    const objToPurchase = {
       price_data: {
         currency: 'eur',
         product_data: {
@@ -20,19 +17,16 @@ stripeRouter.post('/create-checkout-session/:id', async (req, res) => {
       },
       quantity: 1,
     };
-    return itemObj;
-  });
+
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
-    line_items: itemsToCharge,
+    line_items: objToPurchase,
     mode: 'payment',
-    success_url: `${process.env.YOUR_DOMAIN}/checkout`,
-    cancel_url: `${process.env.YOUR_DOMAIN}/cart`,
+    success_url: `http://localhost:5000/profile`,
+    cancel_url: `http://localhost:5000/`,
   });
-
-  // empty the user cart
 
   res.json({ id: session.id });
 });
 
-module.exports = stripeRouter;
+module.exports = paymentRouter;

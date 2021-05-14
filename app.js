@@ -30,4 +30,7 @@ app.use("/api/articles", articleRouter);
 const expertRouter = require("./routes/expert.routes");
 app.use("/api/experts", expertRouter);
 
+const paymentRouter = require('./routes/payment.routes');
+app.use('/api/payments', paymentRouter);
+
 module.exports = app;

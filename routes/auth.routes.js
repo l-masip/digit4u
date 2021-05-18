@@ -46,6 +46,7 @@ router.post('/signup', (req, res, next) => {
       .then((newUser) => {
         req.login(newUser, (error) => {
           if (error) {
+            console.log('error', error)
             return res.status(500).json(error);
           }
           transporter.sendMail({
@@ -54,8 +55,11 @@ router.post('/signup', (req, res, next) => {
             subject: 'Bienvenido a Digit 4 you',
             text: 'Bienvenido',
             html: `<p>Gracias por crear tu cuenta ${newUser.name}</p>`,
-          });
-          return res.status(200).json(newUser);
+          })
+          .then (()=> {
+            return res.status(200).json(newUser);
+          }) 
+          .catch((error) => res.status(500).json(error));
 
         });
 

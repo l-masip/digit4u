@@ -1,7 +1,7 @@
 const express = require("express");
 const Article = require("../models/Article.model");
 const router = express.Router();
-const uploader = require('../configs/cloudinary.config')
+const uploader = require("../configs/cloudinary.config");
 
 router.get("/", (req, res, next) => {
   Article.find()
@@ -17,7 +17,7 @@ router.post("/", async (req, res, next) => {
       description,
       link,
       photo,
-      user: req.user.id
+      user: req.user.id,
     });
 
     return res.status(200).json(article);
@@ -26,14 +26,23 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.put("/:id", uploader.single('photo'), (req, res, next) => {
+router.get("/:id", (req, res, next) => {
+  const { id } = req.params;
+  Article.findById(id)
+    .then((articles) => res.status(200).json(articles))
+    .catch((err) => res.status(500).json(err));
+});
+
+router.put("/:id", uploader.single("photo"), (req, res, next) => {
   const { id } = req.params;
   Article.findOneAndUpdate(
-    { _id: id }, 
+    { _id: id },
     // { ...req.body, photo: req.file ? req.file.path : req.article.photo },
-    req.body, {
-    new: true,
-  })
+    req.body,
+    {
+      new: true,
+    }
+  )
     .then((articles) => res.status(200).json(articles))
     .catch((err) => res.status(500).json(err));
 });

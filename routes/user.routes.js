@@ -35,9 +35,10 @@ router.get("/:id", (req, res, next) => {
 
 router.put("/:id", (req, res, next) => {
   const { id } = req.params;
+  const { name, surname, phone, position } = req.body;
   User.findOneAndUpdate(
     { _id: id }, 
-    req.body, 
+    { name, surname, phone, position },
     { new: true }
   )
     .then((user) => res.status(200).json(user))
@@ -46,7 +47,7 @@ router.put("/:id", (req, res, next) => {
 
 router.delete("/:id", (req, res, next) => {
   const { id } = req.params;
-  User.findOneAndRemove({ _id: id, user: req.user.id })
+  User.findOneAndRemove({ _id: id })
     .then(() => res.status(200).json({ message: `User ${id} deleted` }))
     .catch((err) => res.status(500).json(err));
 });

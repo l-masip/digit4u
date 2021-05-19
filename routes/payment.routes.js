@@ -25,10 +25,10 @@ paymentRouter.post("/create-checkout-session/:id", async (req, res) => {
 
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
-    line_items: objToPurchase,
+    line_items: [objToPurchase],
     mode: "payment",
-    success_url: `http://localhost:5000/profile`,
-    cancel_url: `http://localhost:5000/`,
+    success_url: `http://localhost:3000/userhomepage`,
+    cancel_url: `http://localhost:3000/`,
   });
 
   res.json({ id: session.id });

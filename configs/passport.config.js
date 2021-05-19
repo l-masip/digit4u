@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
+//const { Strategy: GoogleStrategy } = require('passport-google-oauth20');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User.model');
 
@@ -43,35 +43,35 @@ module.exports = (app) => {
   );
 
   // passport.use(
-  //   'linkedin',
-  //   new LinkedInStrategy(
-  //     {
-  //       clientID: process.env.clientID,
-  //       clientSecret: process.env.clientSecret,
-  //       callbackURL: process.env.callbackURL,
-  //       scope: ['r_emailaddress', 'r_liteprofile'],
-  //       state: true,
-  //     },
-  //     (accessToken, refreshToken, profile, done) => {
-  //       console.log('Linkedin account:', profile);
+    // new GoogleStrategy(
+    //   {
+    //     clientID: process.env.GOOGLE_CLIENT_ID,
+    //     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    //     callbackURL: process.env.GOOGLE_CALLBACK,
+    //   },
+    //   (accesToken, refreshToken, profile, cb) => {
+    //     User.findOne({ email: porfile._json.email })
+    //       .then((user) => {
+    //         if (user) {
+    //           cb(null, user);
+    //           return;
+    //         }
+    //         console.log(profile);
+    //         User.create({
+    //           email: profile._json.email,
+    //           name: profile.displayName,
+    //           profile_pic: profile._json.picture,
+    //         })
+    //           .then((newUSer) => {
+    //             cb(null, newUser);
+    //           })
+    //           .catch((error) => cb(error));
+    //       })
+    //       .catch((error) => cb(error));
+    //   }
+    // )
 
-  //       User.findOne({ linkedinID: profile.id })
-  //         .then((profile) => {
-  //           if (profile) {
-  //             done(null, profile);
-  //             return;
-  //           }
 
-  //           User.create({ linkedinID: profile.id, email: profile.user.email })
-  //             .then((newUser) => {
-  //               done(null, newUser);
-  //             })
-  //             .catch((error) => done(error));
-  //         })
-  //         .catch((error) => done(error));
-  //     }
-  //   )
-  // );
   app.use(passport.initialize());
   app.use(passport.session());
 }

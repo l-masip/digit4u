@@ -5,20 +5,19 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const Product = require("./../models/Product.model");
 const User = require("./../models/User.model");
 
-paymentRouter.post('/reserve/:id', async (req, res) => {
-
+paymentRouter.post("/reserve/:id", async (req, res) => {
   const product = await Product.findById(req.params.id);
 
   const { id } = req.user;
 
   const updatedUser = await User.findOneAndUpdate(
     { _id: id },
-    {$push: {'products': product._id}},
-    {new: true}
-    )
+    { $push: { products: product._id } },
+    { new: true }
+  );
 
-    res.status(200).json(updatedUser)
-})
+  res.status(200).json(updatedUser);
+});
 
 // paymentRouter.post("/create-checkout-session/:id", async (req, res) => {
 //   const product = await Product.findById(req.params.id);

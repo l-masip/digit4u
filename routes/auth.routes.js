@@ -2,6 +2,8 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const User = require('../models/User.model');
+const Product = require('../models/Product.model');
+
 // const nodemailer = require('nodemailer');
 const uploader = require('../configs/cloudinary.config')
 const bcrypt = require('bcryptjs');
@@ -93,7 +95,7 @@ router.post('/logout', (req, res, next) => {
   return res.status(200).json({ message: 'Log out success!' });
 });
 
-router.get('/loggedin', (req, res, next) => {
+router.get('/loggedin', async (req, res, next) => {
   if (req.isAuthenticated()) {
     return res.status(200).json(req.user);
   } else {

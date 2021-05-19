@@ -1,11 +1,22 @@
-const express = require("express");
 const User = require("../models/User.model");
+const express = require("express");
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
   User.find()
     .then((users) => res.status(200).json(users))
     .catch((err) => res.status(500).json(err));
+});
+
+router.get("/:id", (req, res, next) => {
+  console.log(req.params.id)
+
+  const { id } = req.params
+  
+  User.findById(id).populate('products')
+    .then((user) => res.status(200).json(user))
+    .catch((err) => res.status(500).json(err));
+
 });
 
 // router.post("/", async (req, res, next) =>{

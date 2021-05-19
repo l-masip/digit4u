@@ -12,7 +12,7 @@ router.get("/:id", (req, res, next) => {
   console.log(req.params.id)
 
   const { id } = req.params
-  
+
   User.findById(id).populate('products')
     .then((user) => res.status(200).json(user))
     .catch((err) => res.status(500).json(err));
@@ -36,8 +36,8 @@ router.get("/:id", (req, res, next) => {
 router.put("/:id", (req, res, next) => {
   const { id } = req.params;
   User.findOneAndUpdate(
-    { _id: id }, 
-    req.body, 
+    { _id: id },
+    req.body,
     { new: true }
   )
     .then((user) => res.status(200).json(user))
@@ -46,9 +46,10 @@ router.put("/:id", (req, res, next) => {
 
 router.delete("/:id", (req, res, next) => {
   const { id } = req.params;
-  User.findOneAndRemove({ _id: id, user: req.user.id })
+  User.findOneAndRemove({ _id: id})
     .then(() => res.status(200).json({ message: `User ${id} deleted` }))
     .catch((err) => res.status(500).json(err));
 });
+
 
 module.exports = router;

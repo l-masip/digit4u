@@ -35,18 +35,15 @@ router.get("/:id", (req, res, next) => {
 
 router.put("/:id", (req, res, next) => {
   const { id } = req.params;
-  User.findOneAndUpdate(
-    { _id: id },
-    req.body,
-    { new: true }
-  )
+  const { name, surname, phone, position } = req.body;
+  User.findOneAndUpdate({_id:id}, {name, surname, phone, position}, {new:true})
     .then((user) => res.status(200).json(user))
     .catch((err) => res.status(500).json(err));
 });
 
 router.delete("/:id", (req, res, next) => {
   const { id } = req.params;
-  User.findOneAndRemove({ _id: id})
+  User.findOneAndRemove({ _id: id })
     .then(() => res.status(200).json({ message: `User ${id} deleted` }))
     .catch((err) => res.status(500).json(err));
 });

@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
   Product.find()
-  .populate('expert')
+    .populate("expert")
     .then((products) => res.status(200).json(products))
     .catch((err) => res.status(500).json(err));
 });

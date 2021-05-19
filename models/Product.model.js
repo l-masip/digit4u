@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const productSchema = new Schema(
@@ -8,10 +8,10 @@ const productSchema = new Schema(
     price: { type: Number, required: true },
     category: {
       type: String,
-      enum: ['Web Design', 'Digital Marketing', 'Staff Training', 'Consulting'],
+      enum: ["Web Design", "Digital Marketing", "Staff Training", "Consulting"],
     },
     video_demo: { type: String, required: true },
-    expert: { type: Schema.Types.ObjectId, ref: 'Expert' },
+    expert: { type: Schema.Types.ObjectId, ref: "Expert" },
   },
   {
     timestamps: true,
@@ -26,5 +26,5 @@ const productSchema = new Schema(
   }
 );
 
-const Product = mongoose.model('Product', productSchema);
+const Product = mongoose.model("Product", productSchema);
 module.exports = Product;

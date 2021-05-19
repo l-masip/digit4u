@@ -33,10 +33,8 @@ app.use("/api/experts", expertRouter);
 const paymentRouter = require('./routes/payment.routes');
 app.use('/api/payments', paymentRouter);
 
-// ROUTE FOR SERVING REACT APP (index.html)
 app.use((req, res, next) => {
-  // If no previous routes match the request, send back the React app.
-  res.sendFile(__dirname + "/public/index.html");
+  res.sendFile(__dirname + '/public/index.html');
 });
 
 module.exports = app;

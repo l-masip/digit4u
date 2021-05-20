@@ -53,7 +53,7 @@ router.post("/signup", (req, res, next) => {
           transporter
             .sendMail({
               from: "Contacto web <digit4you21@gmail.com",
-              to: "trianaheinz@gmail.com", // email from signup form
+              to: `${newUser.name}`,
               subject: "Bienvenido a Digit 4 you",
               text: "Bienvenido",
               html: `<p>Gracias por crear tu cuenta ${newUser.name}</p>`,

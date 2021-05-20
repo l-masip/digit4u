@@ -1,5 +1,6 @@
 const express = require("express");
 const Product = require("../models/Product.model");
+const Expert = require ("../models/Expert.model");
 const router = express.Router();
 
 router.get("/", (req, res) => {

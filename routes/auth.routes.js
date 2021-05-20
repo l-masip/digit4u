@@ -1,6 +1,7 @@
 const express = require("express");
 const passport = require("passport");
 const router = express.Router();
+const transporter = require("../configs/nodemailer.config");
 const User = require("../models/User.model");
 const Product = require("../models/Product.model");
 

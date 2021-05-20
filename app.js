@@ -1,4 +1,5 @@
 require("dotenv").config();
+const path = require("path");
 const express = require("express");
 
 // DB config
@@ -33,8 +34,11 @@ app.use("/api/experts", expertRouter);
 const paymentRouter = require('./routes/payment.routes');
 app.use('/api/payments', paymentRouter);
 
-app.use((req, res, next) => {
-  res.sendFile(__dirname + '/public/index.html');
+app.use('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
+// app.use((req, res, next) => {
+//   res.sendFile(__dirname + '/public/index.html');
+// });
 
 module.exports = app;
